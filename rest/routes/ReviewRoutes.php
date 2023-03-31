@@ -1,6 +1,4 @@
 <?php
-// CRUD operations for review entity
-
 
 Flight::route('GET /review', function(){
   Flight::json(Flight::reviewService()->get_all());
