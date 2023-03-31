@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__."/../Config.class.php";
- class BaseDao {
+ 
+class BaseDao {
     private $conn; 
 
     private $table_name;
