@@ -4,6 +4,10 @@ Radnikba is an online platform for advertising construction workers. Aware of th
 
 The project was done as part of the **IT 309 Software Engineering** course at International Burch University.
 
+In this release, the following features are available:
+- CRUD operations on entities: job, worker and review
+- Homepage UI with basic data manipulation functionalities
+ 
 ## Team members
 - [Harun Kunovac](https://github.com/HarunKu)
 - [Ervin Vladić](https://github.com/ervinvladic)
