@@ -4,6 +4,9 @@ var WorkerService = {
     $.ajax({
       url: 'rest/worker',
       type: 'POST',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
       data: JSON.stringify(worker),
       contentType: "application/json",
       dataType: "json",
@@ -25,20 +28,28 @@ var WorkerService = {
     $.ajax({
        url: "rest/job/"+id+"/worker",
        type: "GET",
+       beforeSend: function(xhr){
+         xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+       },
        success: function(data) {
          var html = "";
          for(let i = 0; i < data.length; i++){
            html += `<div class="list-group-item job-worker-`+data[i].id+`">
-             <button class="btn btn-danger btn-sm float-end " onclick="WorkerService.delete(`+data[i].id+`)">Obriši</button>
+             <button class="btn btn-danger btn-sm float-end admin-panel hidden" onclick="WorkerService.delete(`+data[i].id+`)">Obriši</button>
              <button class="btn btn-success btn-sm float-end" onclick="ReviewService.list_by_worker_id(`+data[i].id+`)">Komentari</button>
              <p class="list-group-item-text">`+'Ime: '+data[i].worker_name+' | Grad: '+data[i].worker_city+' | Telefon: '+data[i].worker_phone_number+' | Email: '+data[i].worker_email+' | Adresa: '+data[i].worker_address+`</p>
            </div>`;
          }
          $("#job-workers").html(html);
+         let userInfo = UserService.parseJWT(localStorage.getItem("token"));
+         if(userInfo.r == "ADMIN"){
 
+           $('.admin-panel').removeClass("hidden");
+         }
        },
        error: function(XMLHttpRequest, textStatus, errorThrown) {
          toastr.error(XMLHttpRequest.responseJSON.message);
+         UserService.logout();
        }
     });
 
@@ -67,6 +78,9 @@ var WorkerService = {
     $.ajax({
       url: 'rest/worker/'+id,
       type: 'DELETE',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+      },
       success: function(result) {
         toastr.success("Deleted !");
       },
