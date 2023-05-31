@@ -36,6 +36,10 @@
               <a class="nav-link active" href="#" tabindex="page" aria-disabled="true">O nama</a>
             </li>
           </ul>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-outline-light" type="button" onclick="UserService.logout()">Odjavi se</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -51,7 +55,9 @@
      <div class="container marketing" style="margin-top:30px;">
 
         <div class="text-center d-grid gap-2 col-3 mx-auto">
-          <button id="addjob" class="btn btn-info text-light btn-lg " data-bs-toggle="modal" data-bs-target="#addJobModal">Dodaj posao</button>
+          <button class="btn btn-primary btn-lg " type="button" onclick="searchresults()"  >Pretraga</button>
+
+          <button id="addjob" class="btn btn-info text-light btn-lg admin-panel hidden" data-bs-toggle="modal" data-bs-target="#addJobModal">Dodaj posao</button>
         </div>
 
        <div id="job-list" class="row">
@@ -71,6 +77,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="js/job-service.js"></script>
 <script src="js/worker-service.js"></script>
+<script src="js/user-service.js"></script>
 <script src="js/review-service.js"></script>
 
 <!-- Modal -->
@@ -144,7 +151,7 @@
         </div>
 
         <div class="row">
-          <form id="add-worker-form" class="form ">
+          <form id="add-worker-form" class="form admin-panel hidden">
             <input name="worker_job_id" type="hidden" />
             <div class="row" style="padding: 20px;">
               <div class="col-sm-4">
@@ -226,5 +233,27 @@
 </div>
 
 <script>
-  JobService.init();
+var token = localStorage.getItem("token");
+if (token){
+
+ JobService.init();
+ loadMain();
+
+}else{
+ window.location.replace("login.html");
+}
+
+
+  function loadMain(){
+  let userInfo = UserService.parseJWT(localStorage.getItem("token"));
+  if(userInfo.r == "ADMIN"){
+
+    $(".admin-panel").removeClass("hidden");
+    }
+  }
+  function searchresults(){
+    window.location.href="search.html";
+  }
+
+
 </script>
