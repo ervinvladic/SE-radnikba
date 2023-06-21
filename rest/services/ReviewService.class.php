@@ -25,7 +25,7 @@ class ReviewService extends BaseService{
   }
   public function delete_review($user, $id) {
   $review = $this->dao->get_by_id($id);
-  if($review["user_id"] != $user["id"]) throw new Exception("Can't delete this review!", 403);
+  if($review["user_id"] != $user["id"] && $user["r"] != "ADMIN") throw new Exception("Can't delete this review!", 403);
   return $this->delete($id);
   }
 }
