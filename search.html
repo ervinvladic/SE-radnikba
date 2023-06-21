@@ -1,116 +1,187 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
-<head>
-  <meta charset="utf-8">
-  <title>radnikba</title>
-  <link
+  <head>
+    <meta charset="utf-8" />
+    <title>radnikba</title>
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-  <style>
-    .error{
-      color:red;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
-</head>
+    <link
+      href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .error {
+        color: red;
+      }
+      .hidden {
+        display: none;
+      }
+      .image-container {
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
 
-<body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#" onclick="">radnikba</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      .image-container img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+      .element-group {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1;
+      }
+    </style>
+  </head>
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" onclick="window.location.href='index.html'";>Naslovna</a>
-            </li>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" onclick="">radnikba</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-            <li class="nav-item">
-              <a class="nav-link active" href="#" tabindex="page" aria-disabled="true">O nama</a>
-            </li>
-          </ul>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  onclick="window.location.href='index.html'"
+                  ;
+                  >Naslovna</a
+                >
+              </li>
 
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-outline-light" type="button" onclick="UserService.logout()">Odjavi se</button>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="#"
+                  tabindex="page"
+                  aria-disabled="true"
+                  >O nama</a
+                >
+              </li>
+            </ul>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button
+                class="btn btn-outline-light"
+                type="button"
+                onclick="UserService.logout()"
+              >
+                Odjavi se
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="row">
+        <div class="image-container">
+          <img src="slika.jpg" alt="bg image" />
+          <div class="element-group">
+            <form class="d-flex" style="margin-top: 20px" id="input-search">
+              <input
+                id="search-param"
+                class="form-control me-2"
+                type="search"
+                placeholder="Probajte: Sarajevo"
+                aria-label=""
+              />
+              <button class="btn btn-primary btn-outline-light" type="submit">
+                Pretraži
+              </button>
+            </form>
           </div>
         </div>
       </div>
-    </nav>
-  </header>
-
-  <main>
-    <div class="bg-image img-fluid d-flex justify-content-center align-items-center"
-       style="background-image: url('slika.jpg'); height: 50vh;" >
-       <form   class="d-flex col-4" style="margin-top:20px;" >
-         <input id="search-param" class="form-control me-2" type="search" placeholder="Probajte: Sarajevo" aria-label="">
-         <button class="btn btn-primary btn-outline-light" type="button" onclick="workersbysearch()">Pretraži</button>
-       </form>
-
-     </div>
-     <div>
-       <h3 class="text-center" style="margin-top:20px;"><u>Rezultati pretrage</u></h3>
-     </div>
-     <div class="container theme-showcase"style="margin-top:30px;" role="main">
-     <div class="row">
-        <div class="col-md-12">
-          <table id="workers-by-search-table" class="table">
-            <thead>
-              <tr>
-                <th>Radnik</th>
-                <th>Posao</th>
-                <th>Grad</th>
-                <th>Telefon</th>
-                <th>Email</th>
-                <th>Adresa</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+      <div>
+        <h3 class="text-center" style="margin-top: 20px">
+          <u>Rezultati pretrage</u>
+        </h3>
+      </div>
+      <div
+        class="container theme-showcase"
+        style="margin-top: 30px"
+        role="main"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <table id="workers-by-search-table" class="table">
+              <thead>
+                <tr>
+                  <th>Radnik</th>
+                  <th>Posao</th>
+                  <th>Grad</th>
+                  <th>Telefon</th>
+                  <th>Email</th>
+                  <th>Adresa</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
-      </div>
-
-
-  </main>
-</body>
-<script src="js/jquery-3.6.0.min.js"></script>
-<script
+    </main>
+  </body>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"
   ></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="js/user-service.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="js/user-service.js"></script>
 
-<script>
-  var token = localStorage.getItem("token");
-  if (!token){
-   window.location.replace("login.html");
-  }
+  <script>
+    var token = localStorage.getItem("token");
+    if (!token) {
+      window.location.replace("login.html");
+    }
+    $(document).ready(function () {
+      function workersbysearch(event) {
+        event.preventDefault();
 
+        var parameter = $("#search-param").val().toLowerCase();
 
-   function workersbysearch(){
-     let parameter=document.getElementById("search-param").value;
         $.ajax({
-            type: "GET",
-            url: "rest/search/"+parameter,
-            beforeSend: function(xhr){
-              xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-            },
-            success: function (data) {
-              var html = `<thead>
+          type: "GET",
+          url: "rest/search/" + parameter,
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+              "Authorization",
+              localStorage.getItem("token")
+            );
+          },
+          success: function (data) {
+            var html = `<thead>
                           <tr>
                           <th>Radnik</th>
                           <th>Posao</th>
@@ -119,21 +190,34 @@
                           <th>Email</th>
                           <th>Adresa</th>
                         </tr></thead>`;
-              for(let i = 0; i < data.length; i++){
-                html += `<tr>
-                            <th>`+data[i].worker_name+`</th>
-                            <th>`+data[i].job_name+`</th>
-                            <th>`+data[i].worker_city+`</th>
-                            <th>`+data[i].worker_phone_number+`</th>
-                            <th>`+data[i].worker_email+`</th>
-                            <th>`+data[i].worker_address+`</th>
+            for (let i = 0; i < data.length; i++) {
+              html +=
+                `<tr>
+                            <th>` +
+                data[i].worker_name +
+                `</th>
+                            <th>` +
+                data[i].job_name +
+                `</th>
+                            <th>` +
+                data[i].worker_city +
+                `</th>
+                            <th>` +
+                data[i].worker_phone_number +
+                `</th>
+                            <th>` +
+                data[i].worker_email +
+                `</th>
+                            <th>` +
+                data[i].worker_address +
+                `</th>
                           </tr>`;
-              }
-              $("#workers-by-search-table").html(html);
             }
+            $("#workers-by-search-table").html(html);
+          },
         });
       }
-
-
-</script>
+      $("#input-search").submit(workersbysearch);
+    });
+  </script>
 </html>
