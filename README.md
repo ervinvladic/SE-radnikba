@@ -9,6 +9,8 @@ In this release, the following features are available:
 - Homepage UI with basic data manipulation functionalities
 - Login and Registration
 - User and Admin access (try admin access with following credentials: harun.kunovac@stu.ibu.edu.ba, 1111
+
+Project documentation is available in docs folder
  
 ## Team members
 - [Harun Kunovac](https://github.com/HarunKu)
