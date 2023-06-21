@@ -13,3 +13,4 @@ In this release, the following features are available:
 ## Team members
 - [Harun Kunovac](https://github.com/HarunKu)
 - [Ervin Vladić](https://github.com/ervinvladic)
+
