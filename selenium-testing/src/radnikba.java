@@ -203,11 +203,11 @@ class radnikba {
 		pretragaButton.click();
 		Thread.sleep(3000);
 		
-		WebElement upisUpretragu = webDriver.findElement(By.xpath("/html/body/main/div[1]/form/input"));
+		WebElement upisUpretragu = webDriver.findElement(By.xpath("/html/body/main/div[1]/div/div/form/input"));
 		upisUpretragu.sendKeys("sarajevo");
 		Thread.sleep(2000);
 		
-		WebElement pretraziButton = webDriver.findElement(By.xpath("/html/body/main/div[1]/form/button"));
+		WebElement pretraziButton = webDriver.findElement(By.xpath("/html/body/main/div[1]/div/div/form/button"));
 		pretraziButton.click();
 		Thread.sleep(3000);
 		
